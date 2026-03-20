@@ -1,0 +1,217 @@
+<!DOCTYPE html><html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Detalle Digital</title><style>
+body{
+  margin:0;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  background:linear-gradient(135deg,#fff0f6,#ffe4ec);
+  font-family:Arial;
+  overflow:hidden;
+}
+
+h1{
+  position:absolute;
+  top:25px;
+  color:#ff4da6;
+  text-align:center;
+  font-size:20px;
+}
+
+/* GIRASOL MÁS ARRIBA */
+.flower{
+  width:360px;
+  height:360px;
+  position:relative;
+  transform:scale(0);
+  animation:grow .6s ease-out forwards;
+  margin-top:40px;
+}
+
+@keyframes grow{
+  from{transform:scale(0.6);opacity:0}
+  to{transform:scale(1);opacity:1}
+}
+
+.petal{
+  position:absolute;
+  width:95px;
+  height:165px;
+  top:32px;
+  left:132px;
+  border-radius:50%;
+  background:radial-gradient(circle at 35% 30%, #fff176 0%, #ffc107 55%, #f9a825 100%);
+  box-shadow: inset -10px -14px 18px rgba(0,0,0,0.28), inset 8px 10px 12px rgba(255,255,255,0.3), 0 6px 10px rgba(0,0,0,0.18);
+  transform-origin:center bottom;
+}
+
+.back{
+  position:absolute;
+  width:90px;
+  height:150px;
+  top:38px;
+  left:135px;
+  border-radius:50%;
+  background:radial-gradient(circle at 35% 30%, #ffd54f 0%, #ffb300 60%, #f57f17 100%);
+  opacity:0.95;
+  transform-origin:center bottom;
+}
+
+.center{
+  width:230px;
+  height:230px;
+  position:absolute;
+  top:65px;
+  left:65px;
+  border-radius:50%;
+  background: radial-gradient(circle at center, #5c3b00 0%, #3e2600 65%, #2b1a00 100%), repeating-conic-gradient(rgba(0,0,0,0.22) 0deg 6deg, transparent 6deg 12deg);
+  background-blend-mode:multiply;
+  box-shadow: inset 0 0 35px rgba(0,0,0,0.9);
+  animation:pulse 2s infinite ease-in-out;
+}
+
+@keyframes pulse{
+  0%{transform:scale(1)}
+  50%{transform:scale(1.02)}
+  100%{transform:scale(1)}
+}
+
+#abrir{
+  position:absolute;
+  bottom:40px;
+  padding:12px 22px;
+  border:none;
+  border-radius:25px;
+  background:linear-gradient(135deg,#ff4da6,#ff80bf);
+  color:white;
+  font-size:15px;
+  box-shadow:0 5px 12px rgba(0,0,0,0.2);
+  cursor:pointer;
+}
+
+.notes{
+  display:none;
+  text-align:center;
+  margin-top:20px;
+  padding:20px;
+  border-radius:20px;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(255,255,255,0.6), transparent 40%),
+    radial-gradient(circle at 80% 80%, rgba(255,255,255,0.4), transparent 40%),
+    linear-gradient(135deg,#ffd6e7,#ffeaf2,#ffd6e7);
+  box-shadow:0 10px 25px rgba(0,0,0,0.15);
+}
+
+.card{
+  background:white;
+  padding:18px;
+  border-radius:12px;
+  width:260px;
+  min-height:110px;
+  box-shadow:0 8px 20px rgba(0,0,0,.2);
+}
+
+/* TEXTO LILA SUAVE */
+#frase{
+  color:#a855f7;
+  text-shadow:0 0 3px rgba(168,85,247,0.3);
+  font-weight:500;
+}
+
+#next{
+  margin-top:12px;
+  padding:10px 18px;
+  border:none;
+  border-radius:20px;
+  background:#ff4da6;
+  color:white;
+  cursor:pointer;
+}
+
+</style></head><body>
+
+<h1>Hola LADY, este pequeño detalle digital es para ti 💗</h1>
+
+<div class="flower" id="flower"></div>
+
+<button id="abrir">Abrir</button>
+
+<div class="notes" id="notes">
+  <div class="card">
+    <div id="frase"></div>
+  </div>
+  <button id="next">Siguiente</button>
+</div>
+
+<script>
+const flower=document.getElementById('flower');
+
+for(let i=0;i<24;i++){
+  const b=document.createElement('div');
+  b.className='back';
+  b.style.transform=`rotate(${i*15}deg) translateY(-102px)`;
+  flower.appendChild(b);
+}
+
+for(let i=0;i<24;i++){
+  const p=document.createElement('div');
+  p.className='petal';
+  p.style.transform=`rotate(${i*15}deg) translateY(-92px)`;
+  flower.appendChild(p);
+}
+
+const center=document.createElement('div');
+center.className='center';
+flower.appendChild(center);
+
+const frases=[
+"Me di una idea y dije...Esto le podría gustar a ella.",
+"Así como son de bonitos los petalos de este girasol, hay cosas qué resaltan por si solas.",
+"Y si... lo dije anteriormente y lo volveré a repetir las veces que sean necesarias",
+"Y como dice un dicho por ahi...",
+"Quien en verdad te quiere lo demuestra con acciones y no solo con palabras.",
+"así que...",
+"Hoy 21 de marzo, inicio de la primavera y feliz día de las flores amarillas.",
+"Y ya que como no es posible hacerlo físicamente, busqué está forma de hacerlo para ti",
+"Puede que solo sea un detalle digital pero no serás espectadora.",
+"Qué tengas un fin de semana increíble. Te lo mereces."
+];
+
+let i=0;
+
+const abrir=document.getElementById('abrir');
+const notes=document.getElementById('notes');
+const fraseEl=document.getElementById('frase');
+const next=document.getElementById('next');
+
+abrir.onclick=()=>{
+  flower.style.display='none';
+  abrir.style.display='none';
+  document.body.style.background="linear-gradient(135deg,#fff3e0,#ffe0b2)";
+  notes.style.display='block';
+  mostrar(frases[0]);
+};
+
+function mostrar(texto){
+  fraseEl.textContent='';
+  let idx=0;
+  const inter=setInterval(()=>{
+    fraseEl.textContent+=texto[idx];
+    idx++;
+    if(idx>=texto.length) clearInterval(inter);
+  },25);
+}
+
+next.onclick=()=>{
+  i=(i+1)%frases.length;
+  mostrar(frases[i]);
+};
+</script>
+
+</body>
+</html>
